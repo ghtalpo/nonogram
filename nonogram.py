@@ -4,8 +4,7 @@ root = tk.Tk()
 root.title("The Nonogram")
 
 from tkinter import font
-default_font = font.nametofont("TkDefaultFont")
-default_font.configure(size=12)
+fontOpt1 = font.Font(family="DejaVu Sans Mono", size=15)
 
 def paint_hints():
     # paint chints
@@ -281,6 +280,7 @@ for col in range(cols):
         width=3,
         height = 8,
         anchor="s",
+        font=fontOpt1,
     )
     # col0 = int(col/5) * 6 + col%5
     l.grid(row=0, column=col+1)
@@ -295,6 +295,7 @@ for row in range(rows):
         textvariable=rhints[row],
         width=12,
         anchor="e",
+        font=fontOpt1,
     )
     l.grid(row=row+1+cheight, column=0)
     rlabels.append(l)
@@ -320,6 +321,7 @@ for row in range(rows):
             width=1,
             height=1,
             command=lambda x=col, y=row: click_xy(x, y),
+            font=fontOpt1,
         )
         b.grid(row=row+1+cheight, column=col+1)
         if (col) % 5 == 0 or (row) % 5 == 0 :
