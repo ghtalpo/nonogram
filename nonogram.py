@@ -32,6 +32,10 @@ def paint_hints():
             clabels[i].config(bg = '#f00')
         else:
             clabels[i].config(bg = '#0f0')
+            # fill empty cells with '?'
+            for row in range(len(rhints)):
+                if buttons[row][i]['text'] == ' ':
+                    buttons[row][i].config(text = '?')
 
     # paint rhints
     for i in range(len(rhints)):
@@ -57,6 +61,10 @@ def paint_hints():
             rlabels[i].config(bg = '#f00')
         else:
             rlabels[i].config(bg = '#0f0')
+            # fill empty cells with '?'
+            for col in range(len(chints)):
+                if buttons[i][col]['text'] == ' ':
+                    buttons[i][col].config(text = '?')
 
 def mark_trivials():
     # for chints
