@@ -110,6 +110,13 @@ def clear_all():
                 buttons[y][x].config(text = ' ')
 
 
+def clear_temps():
+    for y in range(rows):
+        for x in range(cols):
+            if buttons[y][x]['text'] == '?' or buttons[y][x]['text'] == '*': 
+                buttons[y][x].config(text = ' ')
+
+
 def save_data():
     # save all here
     ch = [x.get() for x in chints]
@@ -250,6 +257,8 @@ def onKeyPress(event):
                     buttons[cy][cx].config(text = '#')
                 case 't':
                     buttons[cy][cx].config(text = ' ')
+                case 'p':
+                    clear_temps()
                 case 'a':
                     check()
                 case 's':
