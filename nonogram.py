@@ -3,8 +3,11 @@ import tkinter as tk
 root = tk.Tk()
 root.title("The Nonogram")
 
+font_size_for_low_dpi = 8
+font_size_for_hi_dpi = 15
+
 from tkinter import font
-fontOpt1 = font.Font(family="DejaVu Sans Mono", size=15)
+fontOpt1 = font.Font(family="DejaVu Sans Mono", size=font_size_for_low_dpi)
 
 def paint_hints():
     # paint chints
@@ -112,7 +115,7 @@ def clear_all():
 def clear_temps():
     for y in range(rows):
         for x in range(cols):
-            if buttons[y][x]['text'] == '?' or buttons[y][x]['text'] == '*': 
+            if buttons[y][x]['text'] == '?' or buttons[y][x]['text'] == '*':
                 buttons[y][x].config(text = ' ')
 
 
@@ -277,8 +280,8 @@ for col in range(cols):
     l = tk.Label(
         root,
         textvariable=chints[col],
-        width=3,
-        height = 8,
+        width=2,
+        height = 12,
         anchor="s",
         font=fontOpt1,
     )
@@ -293,7 +296,7 @@ for row in range(rows):
     l = tk.Label(
         root,
         textvariable=rhints[row],
-        width=12,
+        width=20,
         anchor="e",
         font=fontOpt1,
     )
