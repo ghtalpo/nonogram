@@ -305,7 +305,7 @@ tk.Button(
     width=1,
     height=1,
     command=lambda: check(),
-).grid(row=0+cheight, column=0)
+).grid(row=0, column=0)
 
 def check():
     paint_hints()
