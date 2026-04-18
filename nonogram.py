@@ -3,6 +3,9 @@ import tkinter as tk
 root = tk.Tk()
 root.title("The Nonogram")
 
+from tkinter import font
+default_font = font.nametofont("TkDefaultFont")
+default_font.configure(size=12)
 
 def paint_hints():
     # paint chints
