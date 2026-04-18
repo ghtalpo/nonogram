@@ -55,42 +55,48 @@ def paint_hints():
         else:
             rlabels[i].config(bg = '#0f0')
 
-def prepare_solutions():
+def mark_trivials():
     # for chints
-    print('rows?', rows)
+    # print('rows?', rows)
     for i in range(len(chints)):
         hint = [int(x) for x in chints[i].get().split()]
         s = sum(hint) + len(hint)-1
         rem = rows - s
-        print(i, s, rem)
+        # print(i, s, rem)
         pos = 0
         for j in range(len(hint)):
             if hint[j] >= rem:
                 startp = pos + rem
                 endp = pos + hint[j]
-                print(':', i,j,hint[j], startp, endp)
+                # print(':', i,j,hint[j], startp, endp)
 
                 for row in range(startp, endp):
                     buttons[row][i].config(text = '#')
             pos += hint[j] + 1
 
     # for rhints
-    print('cols?', rows)
+    # print('cols?', rows)
     for i in range(len(rhints)):
         hint = [int(x) for x in rhints[i].get().split()]
         s = sum(hint) + len(hint)-1
         rem = cols - s
-        print(i, s, rem)
+        # print(i, s, rem)
         pos = 0
         for j in range(len(hint)):
             if hint[j] > rem:
                 startp = pos + rem
                 endp = pos + hint[j]
-                print(':', i,j,hint[j], startp, endp)
+                # print(':', i,j,hint[j], startp, endp)
 
                 for col in range(startp, endp):
                     buttons[i][col].config(text = '#')
             pos += hint[j] + 1
+
+
+def clear_all():
+    for y in range(rows):
+        for x in range(cols):
+                buttons[y][x].config(text = ' ')
 
 
 def save_data():
@@ -125,14 +131,14 @@ def init():
             lines = f.readlines()
             import json
             d = json.loads(''.join(lines))
-            print('??', d)
+            # print('??', d)
             rows = d['rows']
             cols = d['cols']
             ch = d['chints']
             rh = d['rhints']
             m = d['map']
             cheight = d['cheight']
-            print('???', ch)
+            # print('???', ch)
             ch = (['\n'.join(x.split()) for x in ch])
             return (rows, cols, ch, rh, m, cheight)
     except:
@@ -235,6 +241,10 @@ def onKeyPress(event):
                     buttons[cy][cx].config(text = ' ')
                 case 'a':
                     check()
+                case 's':
+                    mark_trivials()
+                case 'z':
+                    clear_all()
                 case _:
                     mode_text.set('A')
             # text.insert('end', 'You pressed %s\n' % (event.char, ))
@@ -287,7 +297,6 @@ tk.Button(
 ).grid(row=0+cheight, column=0)
 
 def check():
-    prepare_solutions()
     paint_hints()
     save_data()
 
