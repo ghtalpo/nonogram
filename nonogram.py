@@ -251,15 +251,6 @@ def onKeyPress(event):
 
 root.bind('<KeyPress>', onKeyPress)
 
-# for r in range(3):
-#     for c in range(3):
-#         # Create a frame to act as the cell border
-#         frame = tk.Frame(root, relief=tk.RAISED, borderwidth=1)
-#         frame.grid(row=r, column=c)
-        
-#         label = tk.Label(frame, text=f"Row {r}\nCol {c}", padx=10, pady=10)
-#         label.pack()
-
 clabels = []
 chints = []
 for col in range(cols):
