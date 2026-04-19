@@ -134,10 +134,15 @@ if __name__ == '__main__':
             r = []
             for col in range(cols):
                 r.append(buttons[row][col]['text'])
-                if buttons[row][col]['text'] == '#':
-                    buttons[row][col].config(fg='red')
-                else:
-                    buttons[row][col].config(fg='black')
+                match buttons[row][col]['text']:
+                    case '#':
+                        buttons[row][col].config(fg='red', bg='black')
+                    case '*':
+                        buttons[row][col].config(fg='magenta')
+                    case '?':
+                        buttons[row][col].config(fg='brown')
+                    case 'X':
+                        buttons[row][col].config(fg='black')
             m.append(r)
 
         import json
@@ -210,15 +215,19 @@ if __name__ == '__main__':
 
     def update_cursor(cx, cy, nx, ny):
         # clear old button color
-        if (cx) % 5 == 0 or (cy) % 5 == 0 :
-            buttons[cy][cx].config(bg='gray')
-        elif (cx) % 5 == 4 or (cy) % 5 == 4 :
-            buttons[cy][cx].config(bg='darkgray')
-        else:
-            buttons[cy][cx].config(bg='lightgray')
+        match buttons[cy][cx]['text']:
+            case '#':
+                buttons[cy][cx].config(bg='black')
+            case _:
+                if (cx) % 5 == 0 or (cy) % 5 == 0 :
+                    buttons[cy][cx].config(bg='gray')
+                elif (cx) % 5 == 4 or (cy) % 5 == 4 :
+                    buttons[cy][cx].config(bg='darkgray')
+                else:
+                    buttons[cy][cx].config(bg='lightgray')
+
         # paint new button color
-        buttons[ny][nx].config(bg = 'cyan')
-        pass
+        buttons[ny][nx].config(bg = 'gold')
 
     def onKeyPress(event):
         global cx
@@ -268,7 +277,7 @@ if __name__ == '__main__':
                         check()
                     case 's':
                         mark_trivials()
-                    case 'z':
+                    case 'Z':
                         clear_all()
                     case _:
                         mode_text.set('A')
@@ -330,14 +339,14 @@ if __name__ == '__main__':
                 font=fontOpt1,
             )
             b.grid(row=row+1+cheight, column=col+1)
+            bg = 'lightgray'
             if (col) % 5 == 0 or (row) % 5 == 0 :
-                b.config(bg='gray')
+                bg = 'gray'
             elif (col) % 5 == 4 or (row) % 5 == 4 :
-                b.config(bg='darkgray')
+                bg = 'darkgray'
             elif col == cy and row == cx:
-                b.config(bg='cyan')
-            else:
-                b.config(bg='lightgray')
+                bg = 'cyan'
+            b.config(bg=bg)
             r.append(b)
         buttons.append(r)
 
