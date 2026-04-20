@@ -163,11 +163,10 @@ if __name__ == '__main__':
                 rows = d['rows']
                 cols = d['cols']
                 ch = d['chints']
-                rh = d['rhints']
+                rh = [' '.join(x.split()) for x in d['rhints']]
                 m = d['map']
                 cheight = d['cheight']
-                # print('???', ch)
-                ch = (['\n'.join(x.split()) for x in ch])
+                ch = ['\n'.join(x.split()) for x in ch]
                 return (rows, cols, ch, rh, m, cheight)
         except:
             print('init all')
