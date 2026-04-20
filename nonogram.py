@@ -1,3 +1,6 @@
+cx = 0
+cy = 0
+
 def run_nono(font_size):
     import tkinter as tk
 
@@ -194,9 +197,6 @@ def run_nono(font_size):
     buttons = []
 
     mode_text = tk.StringVar(root, value='A')
-
-    cx = 0
-    cy = 0
 
     def click_xy(x, y):
         match mode_text.get():
