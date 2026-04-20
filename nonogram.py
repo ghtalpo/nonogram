@@ -219,12 +219,7 @@ if __name__ == '__main__':
             case '#':
                 buttons[cy][cx].config(bg='black')
             case _:
-                if (cx) % 5 == 0 or (cy) % 5 == 0 :
-                    buttons[cy][cx].config(bg='gray')
-                elif (cx) % 5 == 4 or (cy) % 5 == 4 :
-                    buttons[cy][cx].config(bg='darkgray')
-                else:
-                    buttons[cy][cx].config(bg='lightgray')
+                buttons[cy][cx].config(bg='lightgray')
 
         # paint new button color
         buttons[ny][nx].config(bg = 'gold')
@@ -293,13 +288,18 @@ if __name__ == '__main__':
             root,
             textvariable=chints[col],
             width=2,
-            height = 12,
+            height = 10,
             anchor="s",
             font=fontOpt1,
         )
-        # col0 = int(col/5) * 6 + col%5
-        l.grid(row=0, column=col+1)
+        col0 = int(col/5) * 6 + col%5
+        l.grid(row=0, column=1+col0)
         clabels.append(l)
+
+    import tkinter.ttk
+    for col in range(5,cols+5,5):
+        col0 = int(col/5) * 6 + col%5
+        tkinter.ttk.Separator(root, orient="vertical").grid(row=0,column=col0, sticky='ns', rowspan=1+6+int(rows/5)*6,padx=2)
 
     rlabels = []
     rhints = []
@@ -312,8 +312,13 @@ if __name__ == '__main__':
             anchor="e",
             font=fontOpt1,
         )
-        l.grid(row=row+1+cheight, column=0)
+        row0 = int(row/5) * 6 + row%5
+        l.grid(row=row0+1+cheight, column=0)
         rlabels.append(l)
+
+    for row in range(5,rows+5,5):
+        row0 = int(row/5) * 6 + row%5
+        tkinter.ttk.Separator(root, orient="horizontal").grid(row=cheight+row0,column=0, sticky='ew', columnspan=1+6+int(cols/5)*6, pady=2)
 
     tk.Button(
         root,
@@ -338,13 +343,12 @@ if __name__ == '__main__':
                 command=lambda x=col, y=row: click_xy(x, y),
                 font=fontOpt1,
             )
-            b.grid(row=row+1+cheight, column=col+1)
+            col0 = int(col/5) * 6 + col%5
+            row0 = int(row/5) * 6 + row%5
+            b.grid(row=row0+1+cheight, column=col0+1)
+
             bg = 'lightgray'
-            if (col) % 5 == 0 or (row) % 5 == 0 :
-                bg = 'gray'
-            elif (col) % 5 == 4 or (row) % 5 == 4 :
-                bg = 'darkgray'
-            elif col == cy and row == cx:
+            if col == cy and row == cx:
                 bg = 'cyan'
             b.config(bg=bg)
             r.append(b)
