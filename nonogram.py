@@ -115,6 +115,16 @@ if __name__ == '__main__':
                     buttons[y][x].config(text = ' ')
 
 
+    def convert_temp_to_permanent():
+        for y in range(rows):
+            for x in range(cols):
+                match buttons[y][x]['text']:
+                    case '?':
+                        buttons[y][x].config(text = 'X')
+                    case '*':
+                        buttons[y][x].config(text = '#')
+
+
     def clear_temps():
         for y in range(rows):
             for x in range(cols):
@@ -273,6 +283,8 @@ if __name__ == '__main__':
                         mark_trivials()
                     case 'Z':
                         clear_all()
+                    case 'o':
+                        convert_temp_to_permanent()
                     case _:
                         mode_text.set('A')
                 # text.insert('end', 'You pressed %s\n' % (event.char, ))
