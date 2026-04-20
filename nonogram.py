@@ -1,16 +1,11 @@
-
-font_size_for_low_dpi = 8
-font_size_for_hi_dpi = 15
-
-if __name__ == '__main__':
-
+def run_nono(font_size):
     import tkinter as tk
 
     root = tk.Tk()
     root.title("The Nonogram")
 
     from tkinter import font
-    fontOpt1 = font.Font(family="DejaVu Sans Mono", size=font_size_for_low_dpi)
+    fontOpt1 = font.Font(family="DejaVu Sans Mono", size=font_size)
 
     def paint_hints():
         # paint chints
@@ -376,4 +371,11 @@ if __name__ == '__main__':
 
     root.mainloop()
 
-    pass
+if __name__ == '__main__':
+    import sys
+    try:
+        font_size = int(sys.argv[1])
+        run_nono(font_size)
+    except:
+        print('usage: python %s <font_size>' % sys.argv[0])
+
