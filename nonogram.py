@@ -112,7 +112,7 @@ if __name__ == '__main__':
     def clear_all():
         for y in range(rows):
             for x in range(cols):
-                    buttons[y][x].config(text = ' ')
+                    buttons[y][x].config(text = ' ', fg='black', bg='lightgray')
 
 
     def convert_temp_to_permanent():
