@@ -110,7 +110,7 @@ def run_nono(font_size):
     def clear_all():
         for y in range(rows):
             for x in range(cols):
-                    buttons[y][x].config(text = ' ', fg='black', bg='lightgray')
+                buttons[y][x].config(text = ' ', fg='black', bg='lightgray')
 
 
     def convert_temp_to_permanent():
@@ -146,7 +146,7 @@ def run_nono(font_size):
                     case '#':
                         buttons[row][col].config(fg='red', bg='black')
                     case '*':
-                        buttons[row][col].config(fg='magenta')
+                        buttons[row][col].config(fg='magenta', bg='darkgray')
                     case '?':
                         buttons[row][col].config(fg='brown')
                     case 'X':
@@ -172,9 +172,21 @@ def run_nono(font_size):
                 cols = d['cols']
                 ch = d['chints']
                 rh = [' '.join(x.split()) for x in d['rhints']]
+                if len(rh) != rows:
+                    raise "#rh(%d)!= rows(%d)" % (len(rh), rows)
                 m = d['map']
                 cheight = d['cheight']
                 ch = ['\n'.join(x.split()) for x in ch]
+                if len(ch) != cols:
+                    raise "#ch(%d)!= cols(%d)" % (len(ch), cols)
+                if len(m) != rows or len(m[0]) != cols:
+                    m = []
+                    for row in range(rows):
+                        r = []
+                        for col in range(cols):
+                            r.append(' ')
+                        m.append(r)
+
                 return (rows, cols, ch, rh, m, cheight)
         except:
             print('init all')
@@ -376,6 +388,7 @@ if __name__ == '__main__':
     try:
         font_size = int(sys.argv[1])
         run_nono(font_size)
-    except:
+    except Exception as e:
+        print(e)
         print('usage: python %s <font_size>' % sys.argv[0])
 
