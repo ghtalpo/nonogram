@@ -235,9 +235,11 @@ def run_nono(font_size):
         # clear old button color
         match buttons[cy][cx]['text']:
             case '#':
-                buttons[cy][cx].config(bg='black')
+                buttons[cy][cx].config(fg='red',bg='black')
+            case '*':
+                buttons[cy][cx].config(fg='magenta', bg='darkgray')
             case _:
-                buttons[cy][cx].config(bg='lightgray')
+                buttons[cy][cx].config(fg='black',bg='lightgray')
 
         # paint new button color
         buttons[ny][nx].config(bg = 'gold')
