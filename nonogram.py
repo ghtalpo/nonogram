@@ -172,6 +172,7 @@ def run_nono(font_size):
                 cols = d['cols']
                 ch = d['chints']
                 rh = [' '.join(x.split()) for x in d['rhints']]
+                rwidth = max([len(x) for x in rh])
                 if len(rh) != rows:
                     raise "#rh(%d)!= rows(%d)" % (len(rh), rows)
                 m = d['map']
@@ -187,7 +188,7 @@ def run_nono(font_size):
                             r.append(' ')
                         m.append(r)
 
-                return (rows, cols, ch, rh, m, cheight)
+                return (rows, cols, ch, rh, m, cheight, rwidth)
         except:
             print('init all')
             rows = 7 * 5
@@ -195,6 +196,7 @@ def run_nono(font_size):
             cheight = 7
             ch = ['' for x in range(cols)]
             rh = ['' for x in range(rows)]
+            rwidth = max([len(x) for x in rh])
             m = []
             for row in range(rows):
                 r = []
@@ -202,9 +204,9 @@ def run_nono(font_size):
                     r.append(' ')
                 m.append(r)
 
-            return (rows, cols, ch, rh, m, cheight)
+            return (rows, cols, ch, rh, m, cheight, rwidth)
 
-    (rows, cols, ch, rh, m, cheight) = init()
+    (rows, cols, ch, rh, m, cheight, rwidth) = init()
 
     buttons = []
 
@@ -326,7 +328,7 @@ def run_nono(font_size):
         l = tk.Label(
             root,
             textvariable=rhints[row],
-            width=20,
+            width=rwidth,
             anchor="e",
             font=fontOpt1,
         )
