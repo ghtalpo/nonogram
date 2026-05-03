@@ -77,33 +77,52 @@ def run_nono(font_size):
             s = sum(hint) + len(hint)-1
             rem = rows - s
             # print(i, s, rem)
+            lefts = 0
+            for row in range(len(rhints)):
+                if buttons[row][i]['text'] != 'X':
+                    break
+                lefts = lefts + 1
+            rights = 0
+            for row in range(len(rhints)):
+                if buttons[len(rhints) -1 - row][i]['text'] != 'X':
+                    break
+                rights = rights + 1
             pos = 0
             for j in range(len(hint)):
-                if hint[j] >= rem:
-                    startp = pos + rem
+                if hint[j] >= rem - (lefts+rights):
+                    startp = pos + rem - (lefts + rights)
                     endp = pos + hint[j]
                     # print(':', i,j,hint[j], startp, endp)
 
                     for row in range(startp, endp):
-                        buttons[row][i].config(text = '#')
+                        buttons[row + lefts][i].config(text = '#')
                 pos += hint[j] + 1
 
         # for rhints
-        # print('cols?', rows)
+        # print('cols?', cols)
         for i in range(len(rhints)):
             hint = [int(x) for x in rhints[i].get().split()]
             s = sum(hint) + len(hint)-1
             rem = cols - s
-            # print(i, s, rem)
+            #print(i, s, rem)
+            lefts = 0
+            for col in range(len(chints)):
+                if buttons[i][col]['text'] != 'X':
+                    break
+                lefts = lefts + 1
+            rights = 0
+            for j in range(len(chints)):
+                if buttons[i][len(chints) -1 - j]['text'] != 'X':
+                    break
+                rights = rights + 1
             pos = 0
             for j in range(len(hint)):
-                if hint[j] > rem:
-                    startp = pos + rem
+                if hint[j] > rem - (lefts+rights):
+                    startp = pos + rem - (lefts + rights)
                     endp = pos + hint[j]
-                    # print(':', i,j,hint[j], startp, endp)
 
                     for col in range(startp, endp):
-                        buttons[i][col].config(text = '#')
+                        buttons[i][col + lefts].config(text = '#')
                 pos += hint[j] + 1
 
 
@@ -310,7 +329,7 @@ def run_nono(font_size):
             root,
             textvariable=chints[col],
             width=2,
-            height = 10,
+            height = cheight,
             anchor="s",
             font=fontOpt1,
         )
